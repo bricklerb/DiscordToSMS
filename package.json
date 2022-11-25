@@ -1,0 +1,15 @@
+{
+  "name": "discordtosms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Isabella Brickler",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.6.0",
+    "typescript": "^4.9.3"
+  }
+}
