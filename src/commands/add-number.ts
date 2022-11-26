@@ -1,6 +1,7 @@
 import { Commands } from "../interfaces/Command";
 import { PhoneNumber } from "../entities/PhoneNumber";
 import { datasource } from "../index"
+import { config } from "../utils/config";
 
 export const Command: Commands = {
     name: "add_phone",
@@ -11,12 +12,13 @@ export const Command: Commands = {
         description: "The phone number to add",
         required: true
     }],
+    default_member_permissions: "0",
     dm_permission: false,
     run: async (client, interaction) => {
         const numString = interaction.options.get('phone')?.value
 
         if (isNaN(numString as number)) {
-            interaction.reply(`${numString} is not a valid phone number.`)
+            await interaction.reply(`${numString} is not a valid phone number.`)
         } else {
             const phoneNumRepo = datasource.getRepository('PhoneNumber')
 
@@ -25,8 +27,15 @@ export const Command: Commands = {
             newPhoneNumber.guildId = interaction.guildId as string
             newPhoneNumber.channelId = interaction.channelId
             await phoneNumRepo.save(newPhoneNumber)
+                .catch(async error => {
+                    if (error.errno = 19) {
+                        await interaction.reply("Phone number already added to channel.")
+                    }
+                });
+        }
 
-            interaction.reply("Number added!")
+        if (!interaction.replied) {
+            await interaction.reply('Number added to channel!')
         }
     }
 }
