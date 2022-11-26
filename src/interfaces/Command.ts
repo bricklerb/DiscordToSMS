@@ -13,5 +13,6 @@ export interface Commands {
     description: string;
     options?: Options[],
     dm_permission?: boolean,
+    default_member_permissions?: string
     run: (client: Client, interaction: CommandInteraction) => Promise<any> | any;
 };
