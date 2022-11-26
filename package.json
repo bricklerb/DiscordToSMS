@@ -10,8 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.6.0",
-    "sequelize": "^6.25.8",
+    "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.1.2",
+    "typeorm": "^0.3.10",
     "typescript": "^4.9.3"
   }
 }

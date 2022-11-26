@@ -1,5 +1,6 @@
 import { Commands } from "../interfaces/Command";
-import { PhoneNumber } from "../models/PhoneNumber";
+import { PhoneNumber } from "../entities/PhoneNumber";
+import { datasource } from "../index"
 
 export const Command: Commands = {
     name: "add_phone",
@@ -17,11 +18,13 @@ export const Command: Commands = {
         if (isNaN(numString as number)) {
             interaction.reply(`${numString} is not a valid phone number.`)
         } else {
-            await PhoneNumber.create({
-                number: numString as number,
-                guildId: interaction.guildId as string,
-                channelId: interaction.channelId
-            });
+            const phoneNumRepo = datasource.getRepository('PhoneNumber')
+
+            let newPhoneNumber = new PhoneNumber();
+            newPhoneNumber.number = numString as number
+            newPhoneNumber.guildId = interaction.guildId as string
+            newPhoneNumber.channelId = interaction.channelId
+            await phoneNumRepo.save(newPhoneNumber)
 
             interaction.reply("Number added!")
         }

@@ -6,7 +6,6 @@ import path from 'path';
 
 export class Bot {
     public commands: Collection<string, Commands> = new Collection();
-    // public events: Collection<string, Events> = new Collection();
 
     public constructor(public readonly client: Client) {
         this.client.login(config.token).then(() => {
