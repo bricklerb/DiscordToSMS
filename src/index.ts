@@ -1,4 +1,4 @@
-import { Client, Events, GatewayIntentBits } from "discord.js";
+import { AllowedMentionsTypes, Client, Events, GatewayIntentBits } from "discord.js";
 import { Bot } from "./structs/Bot";
 import "reflect-metadata"
 import { DataSource } from "typeorm";
@@ -8,7 +8,8 @@ export const bot = new Bot(
     new Client({
         intents: [
             GatewayIntentBits.Guilds
-        ]
+        ],
+        allowedMentions: { parse: ['everyone'] }
     })
 );
 
