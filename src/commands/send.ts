@@ -1,6 +1,5 @@
-import { Client, CommandInteraction, MessagePayload } from "discord.js"
 import { Repository } from "typeorm";
-import { datasource } from "..";
+import { datasource, twilio } from "..";
 import { PhoneNumber } from "../entities/PhoneNumber";
 import { Commands } from "../interfaces/Command";
 
@@ -23,15 +22,28 @@ export const Command: Commands = {
             }
         });
 
-        //TODO implement SMS
+        let channel = await interaction.guild?.channels.fetch(interaction.channel?.id as string)
 
-        interaction.reply("Sent!")
+        let message = `"${interaction.options.get('message')?.value as string}" `
+        message += `from ${interaction.user.tag} in ${channel?.name}`
 
-        interaction.channel?.send({
-            content: `${interaction.guild?.roles.everyone} ${interaction.options.get('message')?.value}`,
-            allowedMentions: { parse: ['everyone'] }
-        });
+        //TODO implement Rate Limiting
+        for (const phoneNumber of numbers) {
+            try {
+                twilio.sendMessage(phoneNumber, message)
+            } catch {
 
+            }
+        }
+
+        try {
+            interaction.reply({
+                content: `${interaction.guild?.roles.everyone} ${interaction.options.get('message')?.value}`,
+                allowedMentions: { parse: ['everyone'] }
+            });
+        } catch (exception) {
+            console.log(exception)
+        }
     }
 
     // repo.save()
