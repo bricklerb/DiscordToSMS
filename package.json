@@ -12,6 +12,7 @@
     "discord.js": "^14.6.0",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.1.2",
+    "twilio": "^3.83.3",
     "typeorm": "^0.3.10",
     "typescript": "^4.9.3"
   }

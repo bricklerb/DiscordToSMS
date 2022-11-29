@@ -3,6 +3,7 @@ import { Bot } from "./structs/Bot";
 import "reflect-metadata"
 import { DataSource } from "typeorm";
 import { config } from "./utils/config";
+import { TwilioClient } from "./structs/TwilioClient";
 
 export const bot = new Bot(
     new Client({
@@ -20,6 +21,8 @@ export const datasource = new DataSource({
     logging: false,
     synchronize: true
 });
+
+export const twilio = new TwilioClient();
 
 datasource.initialize()
     .catch((error) => console.log(error));
