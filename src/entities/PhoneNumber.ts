@@ -14,4 +14,7 @@ export class PhoneNumber {
 
     @Column()
     declare channelId: string
+
+    @Column({ nullable: true })
+    declare alias: string
 }

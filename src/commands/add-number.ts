@@ -2,6 +2,7 @@ import { Commands } from "../interfaces/Command";
 import { PhoneNumber } from "../entities/PhoneNumber";
 import { datasource } from "../index"
 import { config } from "../utils/config";
+import { stringifyStyle } from "@vue/shared";
 
 export const Command: Commands = {
     name: "add_phone",
@@ -11,6 +12,12 @@ export const Command: Commands = {
         name: "phone",
         description: "The phone number to add",
         required: true
+    },
+    {
+        type: 3,
+        name: "alias",
+        description: "Alias of the number",
+        required: false,
     }],
     default_member_permissions: "0",
     dm_permission: false,
@@ -26,6 +33,11 @@ export const Command: Commands = {
             newPhoneNumber.number = numString as number
             newPhoneNumber.guildId = interaction.guildId as string
             newPhoneNumber.channelId = interaction.channelId
+
+            if (interaction.options.get('alias')?.value != null) {
+                newPhoneNumber.alias = interaction.options.get('alias')?.value as string
+            }
+
             await phoneNumRepo.save(newPhoneNumber)
                 .catch(async error => {
                     if (error.errno = 19) {
