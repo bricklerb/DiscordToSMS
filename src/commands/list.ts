@@ -21,7 +21,7 @@ export const Command: Commands = {
         if (numbers.length > 0) {
             let message = "";
             for (let num of numbers) {
-                message += formatNumber(num.number.toString()) + "\n"
+                message += num.id + ": " + formatNumber(num.number.toString()) + "\n"
             }
 
             interaction.reply(message);
