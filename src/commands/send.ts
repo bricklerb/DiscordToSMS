@@ -32,7 +32,7 @@ export const Command: Commands = {
         //TODO implement Rate Limiting
         for (const phoneNumber of numbers) {
             try {
-                // twilio.sendMessage(phoneNumber, message)
+                twilio.sendMessage(phoneNumber, message)
             } catch {
 
             }
@@ -49,10 +49,4 @@ export const Command: Commands = {
         }
     }
 }
-    // repo.save()
-
-//     {
-//     content: `${interaction.guild?.roles.everyone} ${interaction.options.get('message')?.value}`,
-//         allowedMentions: { parse: ['everyone'] }
-// }
 
