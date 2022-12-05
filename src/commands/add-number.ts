@@ -1,8 +1,6 @@
 import { Commands } from "../interfaces/Command";
 import { PhoneNumber } from "../entities/PhoneNumber";
 import { datasource } from "../index"
-import { config } from "../utils/config";
-import { stringifyStyle } from "@vue/shared";
 
 export const Command: Commands = {
     name: "add_phone",
