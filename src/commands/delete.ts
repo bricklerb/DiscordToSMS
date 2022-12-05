@@ -14,7 +14,7 @@ export const Command: Commands = {
     dm_permission: false,
     default_member_permissions: "0",
     run: async (client, interaction) => {
-        await interaction.reply("Processing...")
+        await interaction.deferReply();
 
         const repo = datasource.getRepository<PhoneNumber>('PhoneNumber')
 
