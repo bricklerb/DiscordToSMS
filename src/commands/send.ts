@@ -14,6 +14,8 @@ export const Command: Commands = {
     }],
     dm_permission: false,
     run: async (client, interaction) => {
+        let reply = await interaction.deferReply()
+
         const numberRepo: Repository<PhoneNumber> = datasource.getRepository('PhoneNumber')
         const numbers = await numberRepo.find({
             where: {
@@ -30,14 +32,15 @@ export const Command: Commands = {
         //TODO implement Rate Limiting
         for (const phoneNumber of numbers) {
             try {
-                twilio.sendMessage(phoneNumber, message)
+                // twilio.sendMessage(phoneNumber, message)
             } catch {
 
             }
         }
 
         try {
-            interaction.reply({
+            await interaction.followUp('Sent!');
+            await interaction.channel?.send({
                 content: `${interaction.guild?.roles.everyone} ${interaction.options.get('message')?.value}`,
                 allowedMentions: { parse: ['everyone'] }
             });
@@ -45,7 +48,11 @@ export const Command: Commands = {
             console.log(exception)
         }
     }
-
-    // repo.save()
 }
+    // repo.save()
+
+//     {
+//     content: `${interaction.guild?.roles.everyone} ${interaction.options.get('message')?.value}`,
+//         allowedMentions: { parse: ['everyone'] }
+// }
 
